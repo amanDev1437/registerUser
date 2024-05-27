@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
+
 @WebServlet("/login")
 public class Login extends HttpServlet {
 
@@ -26,7 +27,7 @@ public class Login extends HttpServlet {
         RegisterDao rdao = new RegisterDao();
         Connection con = rdao.getConnection();
 
-        String query = "select userName, password from users where userName=? and password=?";
+        String query = "select * from users where userName=? and password=?";
 
         try {
             PreparedStatement pst = con.prepareStatement(query);
@@ -38,11 +39,27 @@ public class Login extends HttpServlet {
 
             if(rset.next()){
                 out.println("<h1>You are logged In</h1>");
-                out.println();
-                out.println("email:"+rset.getString("userName"));
 
-            }else{
-                res.sendRedirect("index.html");
+                out.println("<h2>");
+
+                out.println("First Name:"+rset.getString("firstName"));
+                out.println("<br>");
+
+                out.println("Last Name:"+rset.getString("lastName"));
+                out.println("<br>");
+
+                out.println("Email:"+rset.getString("userName"));
+                out.println("<br>");
+
+                out.println("DOB:"+rset.getDate("dob"));
+                out.println("<br>");
+
+                out.println("</h2>");
+
+
+            }else {
+                req.setAttribute("errorMessage","UserName or Password is incorrect");
+                req.getRequestDispatcher("login.html").forward(req,res);
             }
         } catch (Exception e) {
             System.out.println(e);

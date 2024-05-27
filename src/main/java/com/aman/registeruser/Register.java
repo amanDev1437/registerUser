@@ -53,8 +53,6 @@ public class Register extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
-
-
     }
 
 }
