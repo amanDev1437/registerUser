@@ -1,5 +1,6 @@
 package com.aman.registeruser;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,9 +47,13 @@ public class Register extends HttpServlet {
             int rowsAffected = pst.executeUpdate();
             if(rowsAffected>0){
                 out.println("You are registered successfully");
-                res.sendRedirect("login.html");
+                RequestDispatcher rd = req.getRequestDispatcher("login.html");
+                rd.include(req,res);
+
             }else{
                 out.println("Registration failed");
+                RequestDispatcher rd = req.getRequestDispatcher("index.html");
+                rd.include(req,res);
             }
         } catch (Exception e) {
             System.out.println(e);

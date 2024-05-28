@@ -1,5 +1,6 @@
 package com.aman.registeruser;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,11 +56,10 @@ public class Login extends HttpServlet {
                 out.println("<br>");
 
                 out.println("</h2>");
-
-
             }else {
-                req.setAttribute("errorMessage","UserName or Password is incorrect");
-                req.getRequestDispatcher("login.html").forward(req,res);
+                out.println("<h2>Username or password is incorrect</h2>");
+                RequestDispatcher rd = req.getRequestDispatcher("login.html");
+                rd.include(req,res);
             }
         } catch (Exception e) {
             System.out.println(e);
