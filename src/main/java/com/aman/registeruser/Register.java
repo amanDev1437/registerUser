@@ -46,7 +46,7 @@ public class Register extends HttpServlet {
 
             int rowsAffected = pst.executeUpdate();
             if(rowsAffected>0){
-                out.println("You are registered successfully");
+                out.println("<h2>You are registered successfully</h2>");
                 RequestDispatcher rd = req.getRequestDispatcher("login.html");
                 rd.include(req,res);
 
